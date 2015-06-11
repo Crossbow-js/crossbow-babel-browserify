@@ -10,7 +10,7 @@
   "license": "ISC",
   "crossbow": {
     "config": {
-      "babel": {
+      "babel-browserify": {
         "input": "test/fixtures/app.js",
         "output": "test/fixtures/dist/app.js",
         "root": "test/fixtures",

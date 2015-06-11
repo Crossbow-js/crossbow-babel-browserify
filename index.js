@@ -22,12 +22,13 @@ var builder  = prom.create(tasks);
  */
 function processJS (deferred, previous, ctx) {
 
-    var input  = ctx.path.make('babel', 'input');
-    var root   = ctx.path.make('babel', 'root');
-    var output = ctx.path.make('babel', 'output');
-    var map    = ctx.path.make('babel', 'sourcemap');
+    var input  = ctx.path.make('babel-browserify', 'input');
+    var root   = ctx.path.make('babel-browserify', 'root');
+    var output = ctx.path.make('babel-browserify', 'output');
+    var map    = ctx.path.make('babel-browserify', 'sourcemap');
 
     ctx.mkdirp.sync(dirname(output));
+
 
     browserify(input, { debug: true })
         .transform(babelify.configure({
@@ -37,7 +38,8 @@ function processJS (deferred, previous, ctx) {
         .pipe(exorcist(map))
         .on("error", deferred.reject)
         .pipe(fs.createWriteStream(output))
-        .on('end', deferred.resolve);
+        .on('close', deferred.resolve)
+        .on("error", deferred.reject)
 }
 
 if (!module.parent) {
