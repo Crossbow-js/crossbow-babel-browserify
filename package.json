@@ -1,6 +1,6 @@
 {
   "name": "crossbow-babel-browserify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Babel + Browserify",
   "main": "index.js",
   "scripts": {
