@@ -31,7 +31,15 @@ function processJS (deferred, previous, ctx) {
         }))
         .bundle()
         .on('error', function (err) {
-            console.log(err.codeFrame);
+            deferred.notify({level: 'error', msg: [
+                [
+                    '{err: } from {yellow:babel-browserify} task:',
+                    '%s',
+                    err.codeFrame
+                ].join('\n'),
+                err.message
+            ]});
+            err.crossbow_silent = true;
             deferred.reject(err);
         })
         .pipe(exorcist(map))
